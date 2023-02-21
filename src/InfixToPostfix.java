@@ -1,3 +1,12 @@
+/*
+ * @Author Maria Isabel Solano
+ * @version 0.1, 24/02/23
+ * 
+ * Infix To Postfix class that recieves a String with a regular 
+ * expression and a HashMap with the accepted alphabet, and 
+ * returns a Stack with the poxtfixed regular expression. 
+ */
+
 package src;
 
 import java.util.*;
@@ -17,8 +26,10 @@ public class InfixToPostfix {
 
     
     /*
-     * convert ()
+     * Convert is the method that is called to do all the work. 
      * 
+     * @params String           The input string that contains the regex
+     * @return Stack<Symbol>    A stack with the regex on a postfix order
      */
     public Stack<Symbol> convert(String infix) {
 
@@ -27,7 +38,7 @@ public class InfixToPostfix {
 
         ArrayList<Symbol> input = transformToSymbols(infix);
 
-        // Agregar concat
+        // Adds concat '.' if the user didn't specify
         input = concatAdd(input);
 
         String test = "";
@@ -35,8 +46,10 @@ public class InfixToPostfix {
             test += String.valueOf(s.c_id);
         }
 
+        // DELETE LATER
         System.out.println(test);
 
+        // Checks if the letters belong to the alphabet
         for ( int i = 0; i < input.size(); i++) {
             Symbol c = input.get(i);
 
@@ -68,6 +81,14 @@ public class InfixToPostfix {
         return postfix;
     }
 
+    /*
+     * Checks that all of the characters that are in the regex belong
+     * to the Alphabet of the language.  
+     * 
+     * @params String       The input string that contains the regex
+     * @ArrayList<Symbol>   A dynamic array that contains all of the symbols that 
+     *                      belong to the regular expression. 
+     */
     private ArrayList<Symbol> transformToSymbols(String ogInput) {
 
         ArrayList<Symbol> input = new ArrayList<>();
@@ -94,6 +115,15 @@ public class InfixToPostfix {
         return input;
     }
 
+    /*
+     * If the user doesn't include a concat, the program adds it so that
+     * way is easier to work with the reagular expression. 
+     * 
+     * @param ArrayList<Symbol> input   The regular expression already converted
+     *                                  into a dynamic array
+     * @return ArrayList<Symbols> temp  A similar array to imput but with
+     *                                  all the concats
+     */
     private ArrayList<Symbol> concatAdd(ArrayList<Symbol> input) {
 
         Symbol concat = new Symbol('.');
@@ -108,6 +138,7 @@ public class InfixToPostfix {
         // adding the '.'s
         int bias = 1;  
         for (int i = 0; i < input.size() - 1 ; i ++) {
+            // if it is an operator
             if ( isOperator(input.get(i)))  {
                 if ( input.get(i).c_id == '*' || input.get(i).c_id == '+' ||
                      input.get(i).c_id == ')' || input.get(i).c_id == '?') {
@@ -119,6 +150,7 @@ public class InfixToPostfix {
                     }
                 }
 
+            // if it is a normal symbol
             } else if ( !isOperator(input.get(i))) {
                 if ( !isOperator(input.get(i + 1))) {
 
@@ -135,6 +167,16 @@ public class InfixToPostfix {
         return temp;
     }
 
+    /*
+     * Method to determine if the current symbols is an 
+     * operator or not
+     * 
+     * @warning This method may be deprecated in the near future
+     * 
+     * @param Symbols s     The current symbol
+     * @return boolean res  True of false wheather the symbols is an 
+     *                      operator or not
+     */
     private boolean isOperator(Symbol s) {
         boolean res = false;
 
@@ -149,6 +191,12 @@ public class InfixToPostfix {
         return res;
     }
 
+    /*
+     * Method to determine the precedence of an operator
+     * 
+     * @param char operator The current operator
+     * @retunr int r        The level of precedence of that operator
+     */
     private int precedence(char operator) {
         int r = -1;
         if (operator == '?') {

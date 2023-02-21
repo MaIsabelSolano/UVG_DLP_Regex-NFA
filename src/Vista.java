@@ -1,3 +1,10 @@
+/*
+ * @Author Maria Isabel Solano
+ * @version 0.1, 24/02/23
+ * 
+ * View class to interact with the user. 
+ */
+
 package src;
 
 import java.util.HashMap;

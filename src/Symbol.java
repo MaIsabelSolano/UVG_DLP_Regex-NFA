@@ -5,11 +5,28 @@ public class Symbol {
     public char c_id;
 
     /*
-     * @param 
+     * Symbol class constructor
      */
     public Symbol(char a){
 
         this.c_id = a;
         this.id = a;
+    }
+
+    /*
+     * Easy way to know if the current symbol si an operator
+     * or part of the alphabet
+     * @return boolean  If the symbol is an operator or not. 
+    */
+    public boolean isOperator(){
+        boolean operator = false;
+        if (c_id == '|' || c_id == '?' ||
+            c_id == '+' || c_id == '+' ||
+            c_id == '(' || c_id == ')' ||
+            c_id == '.') {
+                operator = true;
+        }
+
+        return operator;
     }
 }

@@ -1,3 +1,10 @@
+/*
+ * @author: @MaIsabelSolano
+ * @version 0.1, 02/02/23
+ * 
+ * Main class to interact with the program. 
+ */
+
 package src;
 
 import java.util.HashMap;
