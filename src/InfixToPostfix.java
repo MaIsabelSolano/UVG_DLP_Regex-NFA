@@ -21,7 +21,7 @@ public class InfixToPostfix {
      * convert ()
      * 
      */
-    public Stack convert(String infix) {
+    public Stack<Symbol> convert(String infix) {
 
         Stack<Symbol> stack = new Stack<>();
         Stack<Symbol> inifixStack = new Stack<>();
