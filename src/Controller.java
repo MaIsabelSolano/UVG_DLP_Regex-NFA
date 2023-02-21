@@ -8,13 +8,16 @@ public class Controller {
 
         Vista vis = new Vista();
         
-
+        // Welcome the user
         vis.Welcome();
 
+        // Create empty dictionary to store the set of Symbols
         HashMap<Integer, Symbol> dict = vis.getSymbols();
 
+        // Get regex from user
         String regex = vis.getRegex();
 
+        // Transform to postfix
         InfixToPostfix itp = new InfixToPostfix(dict);
 
         Stack<Symbol> stack = itp.convert(regex);
@@ -22,6 +25,11 @@ public class Controller {
         for (Symbol s: stack) {
             System.out.println(s.c_id);
         }
+
+        // From postfix transform to Tree
+        Tree regexT = new Tree(stack);
+
+        
 
     }
 

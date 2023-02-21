@@ -12,8 +12,4 @@ public class Symbol {
         this.c_id = a;
         this.id = a;
     }
-
-    public Symbol(int id) {}
-
-    public void getASCII() {}
 }

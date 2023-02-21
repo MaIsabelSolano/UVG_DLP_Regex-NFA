@@ -1,6 +1,5 @@
 package src;
 
-import java.io.CharConversionException;
 import java.util.*;
 
 public class InfixToPostfix {
@@ -24,7 +23,6 @@ public class InfixToPostfix {
     public Stack<Symbol> convert(String infix) {
 
         Stack<Symbol> stack = new Stack<>();
-        Stack<Symbol> inifixStack = new Stack<>();
         Stack<Symbol> postfix = new Stack<>();
 
         ArrayList<Symbol> input = transformToSymbols(infix);
