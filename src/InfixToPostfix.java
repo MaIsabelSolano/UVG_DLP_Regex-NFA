@@ -25,24 +25,49 @@ public class InfixToPostfix {
 
         Stack<Symbol> stack = new Stack<>();
         Stack<Symbol> inifixStack = new Stack<>();
-        StringBuilder postfix = new StringBuilder();
+        Stack<Symbol> postfix = new Stack<>();
 
         ArrayList<Symbol> input = transformToSymbols(infix);
 
-        System.out.println(input.toString());
+        // Agregar concat
+        input = concatAdd(input);
 
+        String test = "";
+        for (Symbol s: input) {
+            test += String.valueOf(s.c_id);
+        }
 
-        // for (int i = 0; i < infix.length(); i++) {
-        //     char c = infix.charAt(i);
+        System.out.println(test);
 
-        //     if (Character.isDigit(c) || Character.isLetter(c)){
-        //         postfix.append(c);
-        //     } else if (c == '(') {
-        //         // stack.push(c);
-        //     }
-        // }
+        for ( int i = 0; i < input.size(); i++) {
+            Symbol c = input.get(i);
 
-        return stack;
+            if ( Character.isDigit(c.c_id) || Character.isLetter(c.c_id)) {
+                postfix.push(c);
+            } else if (c.c_id == '(') {
+                stack.push(c);
+            } else if (c.c_id == ')') {
+                while (!stack.empty() && stack.peek().c_id != '(') {
+                    postfix.push(stack.pop());
+                }
+                if (!stack.isEmpty() && stack.peek().c_id != '(') {
+                    throw new IllegalArgumentException("Invalid expression");
+                } else {
+                    stack.pop();
+                }
+            } else {
+                while (!stack.empty() && precedence(c.c_id) <= precedence(stack.peek().c_id)) {
+                    postfix.push(stack.pop());
+                }
+                stack.push(c);
+            }
+        }
+
+        while (!stack.isEmpty()) {
+            postfix.push(stack.pop());
+        }
+
+        return postfix;
     }
 
     private ArrayList<Symbol> transformToSymbols(String ogInput) {
@@ -55,7 +80,8 @@ public class InfixToPostfix {
             
             if ( ogInput.charAt(i) == '?' || ogInput.charAt(i) == '*' ||
                  ogInput.charAt(i) == '+' || ogInput.charAt(i) == '.' ||
-                 ogInput.charAt(i) == '|' ) {
+                 ogInput.charAt(i) == '|' || ogInput.charAt(i) == '(' ||
+                 ogInput.charAt(i) == ')') {
                 
                 Symbol temp = new Symbol(ogInput.charAt(i));
                 input.add(temp);
@@ -68,5 +94,77 @@ public class InfixToPostfix {
         }
 
         return input;
+    }
+
+    private ArrayList<Symbol> concatAdd(ArrayList<Symbol> input) {
+
+        Symbol concat = new Symbol('.');
+
+        ArrayList<Symbol> temp = new ArrayList<>();
+
+        // copying the array
+        for (int i = 0; i < input.size() ; i++) {
+            temp.add(input.get(i));
+        }
+
+        // adding the '.'s
+        int bias = 1;  
+        for (int i = 0; i < input.size() - 1 ; i ++) {
+            if ( isOperator(input.get(i)))  {
+                if ( input.get(i).c_id == '*' || input.get(i).c_id == '+' ||
+                     input.get(i).c_id == ')' || input.get(i).c_id == '?') {
+                    if ( !isOperator(input.get(i + 1))) {
+
+                        temp.add(i + bias, concat);
+                        bias ++;
+    
+                    }
+                }
+
+            } else if ( !isOperator(input.get(i))) {
+                if ( !isOperator(input.get(i + 1))) {
+
+                    temp.add(i + bias, concat);
+                    bias ++;
+
+                } else if (input.get(i + 1).c_id == '(') {
+                    temp.add(i + bias, concat);
+                    bias ++;
+                }
+            }
+        }
+
+        return temp;
+    }
+
+    private boolean isOperator(Symbol s) {
+        boolean res = false;
+
+        if (s.c_id == '?' || s.c_id == '.' || 
+            s.c_id == '+' || s.c_id == '*' ||
+            s.c_id == '(' || s.c_id == ')' ||
+            s.c_id == '|' ) {
+                
+                res = true;
+            }
+
+        return res;
+    }
+
+    private int precedence(char operator) {
+        int r = -1;
+        if (operator == '?') {
+            r = 3;
+        } else if (operator == '|') {
+            r = 2;
+        } else if (operator == '*') {
+            r = 3;
+        } else if (operator == '+') {
+            r = 3;
+        } else if (operator == '.') {
+            r = 1;
+        }
+
+        return r;
     }
 }
