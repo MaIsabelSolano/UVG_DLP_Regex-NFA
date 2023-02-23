@@ -18,17 +18,22 @@ public class Controller {
         // Welcome the user
         vis.Welcome();
 
-        // Create empty dictionary to store the set of Symbols
-        HashMap<Integer, Symbol> dict = vis.getSymbols();
-
         // Get regex from user
         String regex = vis.getRegex();
 
         // Transform to postfix
-        InfixToPostfix itp = new InfixToPostfix(dict);
+        InfixToPostfix itp = new InfixToPostfix();
 
         Stack<Symbol> stack = itp.convert(regex);
 
+        HashMap<Integer, Symbol> alphabet = itp.getDic();
+
+        System.out.println("\nDictionary:");
+        for (int i: alphabet.keySet()) {
+            System.out.println(alphabet.get(i).c_id);
+        }
+
+        System.out.println("\nStack: ");
         for (Symbol s: stack) {
             System.out.println(s.c_id);
         }
@@ -36,7 +41,7 @@ public class Controller {
         // From postfix transform to Tree
         Tree regexT = new Tree(stack);
 
-        
+        regexT.printTree(regexT.root);
 
     }
 

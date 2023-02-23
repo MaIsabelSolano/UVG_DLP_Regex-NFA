@@ -27,6 +27,20 @@ public class Tree {
         return nodes.pop();
     }
 
+    public void printTree( TreeNode node) {
+
+        if (node == null) {
+            return;
+        }
+
+        if (node.leftChild == null && node.righChild == null) {
+            System.out.println(node.value.c_id);
+        }
+
+        printTree(node.leftChild);
+        printTree(node.righChild);
+    }
+
     private boolean isOperator(Symbol s) {
         boolean res = false;
 

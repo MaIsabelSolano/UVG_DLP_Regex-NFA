@@ -13,15 +13,18 @@ import java.util.*;
 
 public class InfixToPostfix {
 
-    HashMap<Integer, Symbol> dict;
+    HashMap<Integer, Symbol> dict = new HashMap<>();
 
     /*
      * Constructor
      * 
      * @param dict - Dictionary with all the symbol from the alphabet
      */
-    public InfixToPostfix(HashMap<Integer, Symbol> dict) {
-        this.dict = dict;
+    public InfixToPostfix() {
+
+        Symbol epsilon = new Symbol('ε');
+        dict.put(epsilon.id, epsilon);
+        
     }
 
     
@@ -93,23 +96,48 @@ public class InfixToPostfix {
 
         ArrayList<Symbol> input = new ArrayList<>();
 
-        for (int i = 0; i < ogInput.length(); i ++) {
+        // for (int i = 0; i < ogInput.length(); i ++) {
 
-            int j = ogInput.charAt(i);
+        //     int j = ogInput.charAt(i);
             
-            if ( ogInput.charAt(i) == '?' || ogInput.charAt(i) == '*' ||
-                 ogInput.charAt(i) == '+' || ogInput.charAt(i) == '.' ||
-                 ogInput.charAt(i) == '|' || ogInput.charAt(i) == '(' ||
-                 ogInput.charAt(i) == ')') {
+        //     if ( ogInput.charAt(i) == '?' || ogInput.charAt(i) == '*' ||
+        //          ogInput.charAt(i) == '+' || ogInput.charAt(i) == '.' ||
+        //          ogInput.charAt(i) == '|' || ogInput.charAt(i) == '(' ||
+        //          ogInput.charAt(i) == ')') {
                 
-                Symbol temp = new Symbol(ogInput.charAt(i));
-                input.add(temp);
-            } else if (dict.containsKey(j)) {
-                input.add(dict.get(j));
+        //         Symbol temp = new Symbol(ogInput.charAt(i));
+        //         input.add(temp);
+        //     } else if (dict.containsKey(j)) {
+        //         input.add(dict.get(j));
+        //     } else {
+        //         //The input contains unrecognized Symbols
+        //         System.out.println("No existe");
+        //     }
+        // }
+
+        for (int i = 0; i < ogInput.length(); i++ ){
+
+            Symbol temp = new Symbol(ogInput.charAt(i));
+
+            // Checks if it already exists on the alphabet
+            if (dict.containsKey(temp.id)) {
+                // It is already part of the dictionary, it adds it to de array
+                input.add(dict.get(temp.id));
             } else {
-                //The input contains unrecognized Symbols
-                System.out.println("No existe");
+                // Not already part of the dictionary
+                if (isOperator(temp)) {
+                    // Adds to the array
+                    input.add(temp);
+                }
+                else {
+                    // Adds to the array
+                    input.add(temp);
+
+                    // Adds to the dictionary
+                    dict.put(temp.id, temp);
+                }
             }
+
         }
 
         return input;
@@ -212,5 +240,9 @@ public class InfixToPostfix {
         }
 
         return r;
+    }
+
+    public HashMap<Integer, Symbol> getDic() {
+        return this.dict;
     }
 }
