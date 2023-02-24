@@ -1,17 +1,13 @@
 package src;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Automata {
-    public Set States;
-    public Set FinalStates;
-    public Set Symbols;
+    public ArrayList<State> States;
+    public ArrayList<State> FinalStates;
+    public HashMap<Integer, Symbol> Symbols;
     public State initialState;
-    public List<Transition> transitions;
+    public ArrayList<Transition> transitions;
     
-    public Set Transicion ( State q, Symbol s) {
-        Set ret = new Set();
-
-        return ret;
-    }
 }

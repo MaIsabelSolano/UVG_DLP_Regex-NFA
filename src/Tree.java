@@ -16,11 +16,13 @@ public class Tree {
 
         for (int i = 0; i < input.size(); i ++) {
             if (!isOperator(input.get(i))) {
-                TreeNode temp = new TreeNode(input.get(i));
-                nodes.push(temp);
+                TreeNode newNode = new TreeNode(input.get(i));
+                nodes.push(newNode);
             } else {
-                TreeNode temp = new TreeNode(input.get(i), nodes.pop(), nodes.pop());
-                nodes.push(temp);
+                TreeNode left = nodes.pop();
+                TreeNode right = nodes.pop();
+                TreeNode newNode = new TreeNode(input.get(i), left, right);
+                nodes.push(newNode);
             }
         }
 

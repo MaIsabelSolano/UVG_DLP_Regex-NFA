@@ -39,9 +39,9 @@ public class Controller {
         }
 
         // From postfix transform to Tree
-        Tree regexT = new Tree(stack);
+        // Tree regexT = new Tree(stack);
 
-        regexT.printTree(regexT.root);
+        // regexT.printTree(regexT.root);
 
     }
 
