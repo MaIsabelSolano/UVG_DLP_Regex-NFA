@@ -5,8 +5,8 @@ public class State {
     public Type type;
     public Set AFNStates;
 
-    public State() {
-        
+    public State(int id) {
+        this.id = id;
     }
     
 }

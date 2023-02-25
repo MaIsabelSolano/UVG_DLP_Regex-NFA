@@ -37,11 +37,13 @@ public class Controller {
         for (Symbol s: stack) {
             System.out.println(s.c_id);
         }
-        
+
         // From postfix transform to Tree
         Tree regexT = new Tree(stack);
         System.out.println("\nTree");
         regexT.printTree(regexT.root);
+
+        // AFN
 
 
     }

@@ -13,23 +13,25 @@ import java.util.HashMap;
 public class AFN extends Automata{
 
     public ArrayList<State> States;
-    public ArrayList<State> FinalStates;
+    public State FinalState;
     public HashMap<Integer, Symbol> Symbols;
     public State initialState;
     public ArrayList<Transition> transitions;
     
-    public AFN() {
+    public AFN(
+        ArrayList<State> States, 
+        State FinalState, 
+        HashMap<Integer, Symbol> Symbols,
+        State initialState,
+        ArrayList<Transition> transitions ) {
 
-        this.States = new ArrayList<>();
-        this.FinalStates = new ArrayList<>();
-        this.Symbols = new HashMap<>();
-        this.initialState = new State();
-        this.transitions = new ArrayList<>();
+        this.States = States;
+        this.FinalState = FinalState;
+        this.Symbols = Symbols;
+        this.initialState = initialState;
+        this.transitions = transitions;
     
     }
 
-    public void addState(State s) {
-        States.add(s);
-    }
     
 }
