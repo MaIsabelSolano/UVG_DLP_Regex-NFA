@@ -21,7 +21,7 @@ public class Symbol {
     public boolean isOperator(){
         boolean operator = false;
         if (c_id == '|' || c_id == '?' ||
-            c_id == '+' || c_id == '+' ||
+            c_id == '+' || c_id == '*' ||
             c_id == '(' || c_id == ')' ||
             c_id == '.') {
                 operator = true;
