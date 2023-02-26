@@ -53,6 +53,8 @@ public class Controller {
 
             System.out.println(afn);
 
+            GraphToFile gtf = new GraphToFile("output/AFN.txt", afn);
+
         } 
 
 

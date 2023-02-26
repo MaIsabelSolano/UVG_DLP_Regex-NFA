@@ -24,6 +24,12 @@ public class State {
         this.type = Type.Trans;
     }
 
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return Integer.toString(id);
+    }
+
     /* Getters */
     public int getId() {
         return id;
