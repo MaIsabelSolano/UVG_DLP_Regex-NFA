@@ -6,8 +6,6 @@ import java.io.IOException;
 
 public class GraphToFile {
 
-    private String outputFileName;
-
     public GraphToFile(String outputFileName) {
 
         try {
@@ -42,7 +40,9 @@ public class GraphToFile {
             // parese through AFN
             // -States
             for (State s: afn.getStates()) {
-                writer.write("\n\t"+s.toString()+";");
+                if (s.getType() == Type.Final) writer.write("\n\t"+s.toString()+" [shape=doublecircle];");
+                else if (s.getType() == Type.Inicial) writer.write("\n\t"+s.toString()+" [shape=circle, color=gray28];");
+                else writer.write("\n\t"+s.toString()+" [shape=circle];");
             }
 
             writer.write("\n");

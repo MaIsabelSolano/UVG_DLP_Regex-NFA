@@ -34,12 +34,12 @@ public class Controller {
 
             System.out.println("\nDictionary:");
             for (int i: alphabet.keySet()) {
-                System.out.println(alphabet.get(i).c_id);
+                System.out.print(alphabet.get(i).c_id);
             }
 
             System.out.println("\nStack: ");
             for (Symbol s: stack) {
-                System.out.println(s.c_id);
+                System.out.print(s.c_id);
             }
 
             // From postfix transform to Tree
@@ -53,8 +53,11 @@ public class Controller {
 
             System.out.println(afn);
 
-            GraphToFile gtf = new GraphToFile("output/AFN.txt", afn);
-
+            String graphTxtFileName = "output/AFN.txt";
+            String graphJpgFileName = "output/AFN.jpg";
+            GraphToFile gtf = new GraphToFile(graphTxtFileName, afn);
+            TerminalCommand tc = new TerminalCommand();
+            tc.GraphAFN(graphTxtFileName, graphJpgFileName);
         } 
 
 
