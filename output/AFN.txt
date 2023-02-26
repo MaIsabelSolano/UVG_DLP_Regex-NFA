@@ -1,0 +1,7 @@
+digraph AFN
+{
+	0 [shape=circle, color=gray28];
+	1 [shape=doublecircle];
+
+	0 -> 1 [label=a];
+}

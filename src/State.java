@@ -11,9 +11,11 @@ public class State {
         if (typeOption == 1) {
             // Inicial
             this.type = Type.Inicial;
+
         } else if (typeOption == 2) {
             // Transition
             this.type = Type.Trans;
+            
         } else if (typeOption == 3) {
             // Final
             this.type = Type.Final;
@@ -22,6 +24,12 @@ public class State {
 
     public void setToTrans() {
         this.type = Type.Trans;
+    }
+
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return Integer.toString(id);
     }
 
     /* Getters */

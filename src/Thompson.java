@@ -318,19 +318,15 @@ public class Thompson {
                     int finalLeftStatePos = -1;
 
                     for (int i = 0; i < statesLeft.size(); i++ ){
-                        if (statesLeft.get(i).type == Type.Inicial) {
-                            statesLeft.get(i).setToTrans();
-                        }
                         if (statesLeft.get(i).type == Type.Final) {
                             finalLeftStatePos = i;
+                            statesLeft.get(i).setToTrans();
                         }
                     }
 
                     for (int i = 0; i < statesRight.size(); i++ ){
                         if (statesRight.get(i).type == Type.Inicial) {
                             initialRightStatePos = i;
-                        }
-                        if (statesRight.get(i).type == Type.Final) {
                             statesRight.get(i).setToTrans();
                         }
                     }
@@ -361,29 +357,6 @@ public class Thompson {
         // The last AFN to return will be the root's, therefore, the expression's AFN
         
 
-    }
-
-    public void Operation(Symbol s) {
-        if (!s.isOperator()) {
-
-        } else {
-            if (s.c_id == '|') {
-                // or 
-
-            } else if (s.c_id == '*') {
-                // kleene
-
-            } else if (s.c_id == '+') {
-                // positive clousure
-
-            } else if (s.c_id == '?') {
-                // ?
-
-            } else if (s.c_id == '.') {
-                // concatenation
-
-            }
-        }
     }
 
 }
