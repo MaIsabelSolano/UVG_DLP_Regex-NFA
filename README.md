@@ -38,11 +38,16 @@ Para el correcto uso del programa, es necesario que se tenga instalado [GraphViz
 * Graficación del AFN con ayuda de GraphViz
 
 ## Modo de uso 
-<b>Input</b>: Expresión regular con los operadores '|', '.', '+', '-', '?'
+<b>Input</b>: <br>
+Expresión regular con los operadores '|', '.', '+', '-', '?'
 
 <b>Correr</b>:
 * `javac src/Controller.java`
 * `java src/Controller`
+
+<b>Output<b>: 
+![AFN](https://user-images.githubusercontent.com/60373842/221440248-8d5f2b1b-344f-41e8-bf41-05f61cb351c6.jpg)
+<i>(ab)|(a?b+a*)</i>
 
 ## Tecnologías
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white) ![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
