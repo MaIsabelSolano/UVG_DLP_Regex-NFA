@@ -44,8 +44,8 @@ public class Controller {
 
             // From postfix transform to Tree
             Tree regexT = new Tree(stack);
-            System.out.println("\nTree");
-            regexT.printTree(regexT.getRoot());
+            //System.out.println("\nTree");
+            //regexT.printTree(regexT.getRoot());
 
             // AFN
             Thompson thompson = new Thompson(alphabet);

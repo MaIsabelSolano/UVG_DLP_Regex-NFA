@@ -36,6 +36,7 @@ public class GraphToFile {
 
             // header
             writer.write("digraph AFN\n{");
+            writer.write("\n\trankdir=\"LR\";");
 
             // parese through AFN
             // -States
