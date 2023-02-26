@@ -17,21 +17,29 @@ public class AFN extends Automata{
     public HashMap<Integer, Symbol> Symbols;
     public State initialState;
     public ArrayList<Transition> transitions;
+
+    public AFN(HashMap<Integer, Symbol> Symbols) {
+        this.Symbols = Symbols;
+    }
     
     public AFN(
         ArrayList<State> States, 
-        State FinalState, 
+        State initialState, 
         HashMap<Integer, Symbol> Symbols,
-        State initialState,
+        State finalState,
         ArrayList<Transition> transitions ) {
 
         this.States = States;
-        this.FinalState = FinalState;
+        this.FinalState = finalState;
         this.Symbols = Symbols;
         this.initialState = initialState;
         this.transitions = transitions;
-    
     }
 
-    
+    @Override
+    public String toString() {
+        // TODO Auto-generated method stub
+        return super.toString();
+    }
+
 }
