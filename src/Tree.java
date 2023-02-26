@@ -4,7 +4,7 @@ import java.util.Stack;
 
 public class Tree {
 
-    TreeNode root;
+    private TreeNode root;
     
     public Tree(Stack<Symbol> input) {
         this.root = genTree(input);
@@ -53,6 +53,11 @@ public class Tree {
         System.out.println(node.value.c_id);
 
         
+    }
+
+    /* Getters */
+    public TreeNode getRoot() {
+        return root;
     }
 
 }

@@ -5,13 +5,11 @@ import java.util.HashMap;
 
 public class Thompson {
 
-    Tree tree;
     HashMap<Integer, Symbol> alphabet;
     int numState = 0;
     
 
-    public Thompson(Tree tree, HashMap<Integer, Symbol> dict) {
-        this.tree = tree;
+    public Thompson(HashMap<Integer, Symbol> dict) {
         this.alphabet = dict;
     }
 
@@ -22,7 +20,7 @@ public class Thompson {
         if (node.leftChild == null && node.righChild == null) {
             // Tree leafs
 
-            // Generate simple transition
+            // Get states ids
             int originState = 1;
             numState ++;
             originState += numState;
@@ -30,8 +28,11 @@ public class Thompson {
             numState ++;
             destinState += numState;
 
+            // Create new states
             State oS = new State(originState, 1);
             State dS = new State(destinState, 3);
+
+            // Create simple transition
             Transition t = new Transition(oS, node.value, dS);
 
             ArrayList<State> states = new ArrayList<>();
@@ -46,16 +47,109 @@ public class Thompson {
         }
 
         else {
+            if (node.righChild == null) {
+                
+                // Generate children's AFN before their own
+                AFN Left = SubsetConstuction(node.leftChild);
+                
+                // Generate own AFN from current node
+                
+                AFN currentAfn = new AFN(alphabet);
+                return currentAfn;
 
-            AFN currentAfn = new AFN(alphabet);
-            // Generate children's AFN before their own
-            AFN Left = SubsetConstuction(node.leftChild);
+            } else {
+                AFN currentAfn;
+                // Generate children's AFN before their own
+                AFN Left = SubsetConstuction(node.leftChild);
+                
+                AFN Right = SubsetConstuction(node.righChild);
+
+                // Generate own AFN from current node
+                if (node.value.c_id == '|') {
+                    // or
+
+                    // Get states ids
+                    int originState = 1;
+                    numState ++;
+                    originState += numState;
+                    int destinState = 2;
+                    numState ++;
+                    destinState += numState;
+
+                    // Create new states
+                    State oS = new State(originState, 1);
+                    State dS = new State(destinState, 3);
+                    
+                    // Get values from children
+                    // States
+                    ArrayList<State> statesLeft = Left.getStates();
+                    ArrayList<State> statesRight = Right.getStates();
+
+                    ArrayList<State> states = new ArrayList<>();
+                    states.add(oS);
+                    states.addAll(statesLeft);
+                    states.addAll(statesRight);
+                    states.add(dS);
+                    
+                    // initial and final states position in arrays
+                    int initialLeftStatePos = 0;
+                    int initialRightStatePos = 0;
+                    int finalLeftStatePos = -1;
+                    int finalRightStatePos = -1;
+
+                    for (int i = 0; i < statesLeft.size(); i++ ){
+                        if (statesLeft.get(i).type == Type.Inicial) {
+                            initialLeftStatePos = i;
+                            statesLeft.get(i).setToTrans();
+                        }
+                        if (statesLeft.get(i).type == Type.Final) {
+                            finalLeftStatePos = i;
+                            statesLeft.get(i).setToTrans();
+                        }
+                    }
+
+                    for (int i = 0; i < statesRight.size(); i++ ){
+                        if (statesRight.get(i).type == Type.Inicial) {
+                            initialRightStatePos = i;
+                            statesRight.get(i).setToTrans();
+                        }
+                        if (statesRight.get(i).type == Type.Final) {
+                            finalRightStatePos = i;
+                            statesRight.get(i).setToTrans();
+                        }
+                    }
+
+                    // get new transitions
+                    ArrayList<Transition> transitions = new ArrayList<>();
+                    transitions.addAll(Left.getTransitions());
+                    transitions.addAll(Right.getTransitions());
+
+                    // create new transitions
+                    
+                    Transition beginningOrOp1 = new Transition(oS, node.value, statesLeft.get(initialLeftStatePos));
+                    Transition beginningOrOp2 = new Transition(oS, node.value, statesRight.get(initialRightStatePos));
+
+                    Transition endOrOp1 = new Transition(statesLeft.get(finalLeftStatePos), node.value, dS);
+                    Transition endOrOp2 = new Transition(statesRight.get(finalRightStatePos), node.value, dS);
+
+                    transitions.add(beginningOrOp1);
+                    transitions.add(beginningOrOp2);
+                    transitions.add(endOrOp1);
+                    transitions.add(endOrOp2);
+
+                    currentAfn = new AFN(states, oS, alphabet, dS, transitions);
+
+
+                } else {
+                    // concatenation
+
+                    currentAfn = new AFN(alphabet);
+                }
+
+                
+                return currentAfn;
+            }
             
-            AFN Right = SubsetConstuction(node.righChild);
-
-            // Generate own AFN from current node
-
-            return currentAfn;
         }
         
         // The last AFN to return will be the root's, therefore, the expression's AFN
