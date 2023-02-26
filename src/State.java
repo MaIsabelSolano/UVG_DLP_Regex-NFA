@@ -11,9 +11,11 @@ public class State {
         if (typeOption == 1) {
             // Inicial
             this.type = Type.Inicial;
+
         } else if (typeOption == 2) {
             // Transition
             this.type = Type.Trans;
+            
         } else if (typeOption == 3) {
             // Final
             this.type = Type.Final;
