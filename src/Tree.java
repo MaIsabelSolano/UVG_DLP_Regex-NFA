@@ -1,3 +1,11 @@
+/*
+ * @author: Ma. Isabel Solano
+ * @version 1, 26/02/23
+ * 
+ * Tree Structure for by TreNodes. 
+ * 
+ */
+
 package src;
 
 import java.util.Stack;
@@ -6,10 +14,23 @@ public class Tree {
 
     private TreeNode root;
     
+    /**
+     * 
+     * Simple constructor that calls the mathod to generate the tree
+     * 
+     * @param input User's regular expression as a list of symbols in a postfix order
+     */
     public Tree(Stack<Symbol> input) {
         this.root = genTree(input);
     }
 
+    /**
+     * 
+     * Generates Tree node by node, buttom up, and left to right.
+     * 
+     * @param input User's regular expression as a list of symbols in a postfix order
+     * @return      Curent new node for it to be stored in other nodes. 
+     */
     private TreeNode genTree(Stack<Symbol> input){
 
         Stack<TreeNode> nodes = new Stack<>();
@@ -40,6 +61,12 @@ public class Tree {
         return nodes.pop();
     }
 
+    /**
+     * 
+     * Prints all of the tree nodes, bottom up, left to right 
+     * 
+     * @param node  Tree's root and current node
+     */
     public void printTree( TreeNode node) {
 
         if (node == null) {

@@ -1,3 +1,11 @@
+/*
+ * @author: Ma. Isabel Solano
+ * @version 1, 26/02/23
+ * 
+ * Class in charge of converting Automatas into TXT files to be read
+ * by dot later. 
+ */
+
 package src;
 
 import java.io.File;
@@ -6,6 +14,13 @@ import java.io.IOException;
 
 public class GraphToFile {
 
+    /**
+     * Simple test to, creates a TXT file with The words 
+     * "Hello, world!"
+     * 
+     * @param outputFileName    name of the new TXT file
+     * @return                  Instance of GraphToFile
+     */
     public GraphToFile(String outputFileName) {
 
         try {
@@ -27,6 +42,14 @@ public class GraphToFile {
 
     }
 
+    /**
+     * With the given paramethers, formats all of the AFN's info
+     * into a TXT for it to be read later. 
+     * 
+     * @param outputFileName    name of the new TXT file
+     * @param afn               All of the afn with its informaiton
+     * @return                  Instance of GraphToFile
+     */
     public GraphToFile(String outputFileName, AFN afn) {
 
         try {

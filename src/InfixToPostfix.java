@@ -15,7 +15,7 @@ public class InfixToPostfix {
 
     HashMap<Integer, Symbol> dict = new HashMap<>();
 
-    /*
+    /**
      * Constructor
      * 
      * @param dict - Dictionary with all the symbol from the alphabet

@@ -1,8 +1,9 @@
 /*
- * @Author Maria Isabel Solano
- * @version 0.1, 24/02/23
+ * @author: Ma. Isabel Solano
+ * @version 1, 26/02/23
  * 
- * AFN class
+ * AFN class as a Automata should be defined.
+ * 
  */
 
 package src;
@@ -18,10 +19,26 @@ public class AFN extends Automata{
     private State initialState;
     private ArrayList<Transition> transitions;
 
+    /**
+     * 
+     * Simple test constructor
+     * 
+     * @param Symbols   Dictionary of symbols of the languages alphabet
+     */
     public AFN(HashMap<Integer, Symbol> Symbols) {
         this.Symbols = Symbols;
     }
     
+    /**
+     * 
+     * Constructor with all of the AFN information
+     * 
+     * @param States        Set of all the automata states
+     * @param initialState  Initial State
+     * @param Symbols       Dictionary of symbols of the languages alphabet
+     * @param finalState    End State
+     * @param transitions   Set of all the transitions that build the automata
+     */
     public AFN(
         ArrayList<State> States, 
         State initialState, 

@@ -1,3 +1,10 @@
+/*
+ * @author: Ma. Isabel Solano
+ * @version 1, 26/02/23
+ * 
+ * Class in charge of building an NFA by Thompson's subset construction
+ */
+
 package src;
 
 import java.util.ArrayList;
@@ -9,11 +16,23 @@ public class Thompson {
     int numState = 0;
     Symbol epsilon = new Symbol('ε');
     
-
+    /**
+     * Constructor
+     * @param dict  Dictionary of symbols
+     */
     public Thompson(HashMap<Integer, Symbol> dict) {
         this.alphabet = dict;
     }
 
+    /**
+     * 
+     * Given the root of a tree, this method recursively
+     * goes through all the nodes bottom up and left to right and
+     * builds the according AFN of each node. 
+     * 
+     * @param node  Current node
+     * @return      Current's node NFA
+     */
     public AFN SubsetConstuction(TreeNode node) {
         // first node will be the root of the tree
 
@@ -354,8 +373,7 @@ public class Thompson {
             
         }
         
-        // The last AFN to return will be the root's, therefore, the expression's AFN
-        
+        // The last AFN to be returned will be the root's, therefore, the expression's AFN
 
     }
 

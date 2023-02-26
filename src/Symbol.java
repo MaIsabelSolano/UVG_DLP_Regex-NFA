@@ -4,8 +4,10 @@ public class Symbol {
     public int id; //ASCII
     public char c_id;
 
-    /*
+    /**
      * Symbol class constructor
+     * 
+     * @param a Symbol 
      */
     public Symbol(char a){
 
@@ -13,10 +15,10 @@ public class Symbol {
         this.id = a;
     }
 
-    /*
+    /**
      * Easy way to know if the current symbol si an operator
      * or part of the alphabet
-     * @return boolean  If the symbol is an operator or not. 
+     * @return  If the symbol is an operator or not. 
     */
     public boolean isOperator(){
         boolean operator = false;

@@ -1,3 +1,10 @@
+/*
+ * @author: Ma. Isabel Solano
+ * @version 1, 26/02/23
+ * 
+ * Class in charge of running console commands so the user doesn't have to
+ */
+
 package src;
 
 import java.io.IOException;
@@ -6,8 +13,17 @@ import java.util.List;
 
 public class TerminalCommand {
 
+    /** 
+     * Simple constructor
+     */
     public TerminalCommand() {}
 
+    /**
+     * Generates a greaph using the console commands
+     * 
+     * @param txtFile   Name of the file with the graph's info
+     * @param jpgFile   Ouput image of the graph
+     */
     public void GraphAFN(String txtFile, String jpgFile) {
         // Create a list of the command and its arguments
         List<String> command = new ArrayList<>();

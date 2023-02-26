@@ -1,6 +1,6 @@
 /*
- * @author: @MaIsabelSolano
- * @version 0.1, 02/02/23
+ * @author: Ma. Isabel Solano
+ * @version 1, 26/02/23
  * 
  * Main class to interact with the program. 
  */
@@ -53,6 +53,7 @@ public class Controller {
 
             System.out.println(afn);
 
+            // AFN graph
             String graphTxtFileName = "output/AFN.txt";
             String graphJpgFileName = "output/AFN.jpg";
             GraphToFile gtf = new GraphToFile(graphTxtFileName, afn);
