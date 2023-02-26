@@ -51,7 +51,7 @@ public class Thompson {
             if (node.righChild == null) {
                 
                 // Generate children's AFN before their own
-                AFN Left = SubsetConstuction(node.leftChild);
+                AFN Child = SubsetConstuction(node.leftChild);
                 
                 // Generate own AFN from current node
                 
@@ -144,7 +144,56 @@ public class Thompson {
                 } else {
                     // concatenation
 
-                    currentAfn = new AFN(alphabet);
+                    // get first and last state
+                    State firState = Left.getInitialState();
+                    State lastState = Right.getFinalState();
+
+                    // Get values from children
+                    // States
+                    ArrayList<State> statesLeft = Left.getStates();
+                    ArrayList<State> statesRight = Right.getStates();
+
+                    ArrayList<State> states = new ArrayList<>();
+                    states.addAll(statesLeft);
+                    states.addAll(statesRight);
+
+                    // initial and final states position in arrays
+                    int initialRightStatePos = 0;
+                    int finalLeftStatePos = -1;
+
+                    for (int i = 0; i < statesLeft.size(); i++ ){
+                        if (statesLeft.get(i).type == Type.Inicial) {
+                            statesLeft.get(i).setToTrans();
+                        }
+                        if (statesLeft.get(i).type == Type.Final) {
+                            finalLeftStatePos = i;
+                        }
+                    }
+
+                    for (int i = 0; i < statesRight.size(); i++ ){
+                        if (statesRight.get(i).type == Type.Inicial) {
+                            initialRightStatePos = i;
+                        }
+                        if (statesRight.get(i).type == Type.Final) {
+                            statesRight.get(i).setToTrans();
+                        }
+                    }
+
+                    // get new transitions
+                    ArrayList<Transition> transitions = new ArrayList<>();
+                    transitions.addAll(Left.getTransitions());
+                    transitions.addAll(Right.getTransitions());
+
+                    // create new transition 
+
+                    Transition dot = new Transition(
+                        statesLeft.get(finalLeftStatePos), 
+                        epsilon, 
+                        statesRight.get(initialRightStatePos));
+
+                    transitions.add(dot);
+
+                    currentAfn = new AFN(states, firState, alphabet, lastState, transitions);
                 }
 
                 

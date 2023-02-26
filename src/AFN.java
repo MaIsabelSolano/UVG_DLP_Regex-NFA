@@ -65,7 +65,12 @@ public class AFN extends Automata{
             ret += Symbols.get(i).c_id + ", ";
         }
 
-        ret += "\nTransitions: ";
+        ret += "\nStates: {";
+        for (State s: States) {
+            ret += Integer.toString(s.id) + ", ";
+        }
+
+        ret += "}\nTransitions: ";
         for (int i = 0; i < transitions.size(); i ++)  {
             String temp = "[";
             int originId = transitions.get(i).getOriginState().getId();
