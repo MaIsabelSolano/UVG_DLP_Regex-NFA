@@ -7,6 +7,7 @@ public class Thompson {
 
     HashMap<Integer, Symbol> alphabet;
     int numState = 0;
+    Symbol epsilon = new Symbol('ε');
     
 
     public Thompson(HashMap<Integer, Symbol> dict) {
@@ -21,12 +22,12 @@ public class Thompson {
             // Tree leafs
 
             // Get states ids
-            int originState = 1;
-            numState ++;
+            int originState = 0;
             originState += numState;
-            int destinState = 2;
             numState ++;
+            int destinState = 0;
             destinState += numState;
+            numState ++;
 
             // Create new states
             State oS = new State(originState, 1);
@@ -69,12 +70,12 @@ public class Thompson {
                     // or
 
                     // Get states ids
-                    int originState = 1;
-                    numState ++;
+                    int originState = 0;
                     originState += numState;
-                    int destinState = 2;
                     numState ++;
+                    int destinState = 0;
                     destinState += numState;
+                    numState ++;
 
                     // Create new states
                     State oS = new State(originState, 1);
@@ -126,11 +127,11 @@ public class Thompson {
 
                     // create new transitions
                     
-                    Transition beginningOrOp1 = new Transition(oS, node.value, statesLeft.get(initialLeftStatePos));
-                    Transition beginningOrOp2 = new Transition(oS, node.value, statesRight.get(initialRightStatePos));
+                    Transition beginningOrOp1 = new Transition(oS, epsilon, statesLeft.get(initialLeftStatePos));
+                    Transition beginningOrOp2 = new Transition(oS, epsilon, statesRight.get(initialRightStatePos));
 
-                    Transition endOrOp1 = new Transition(statesLeft.get(finalLeftStatePos), node.value, dS);
-                    Transition endOrOp2 = new Transition(statesRight.get(finalRightStatePos), node.value, dS);
+                    Transition endOrOp1 = new Transition(statesLeft.get(finalLeftStatePos), epsilon, dS);
+                    Transition endOrOp2 = new Transition(statesRight.get(finalRightStatePos), epsilon, dS);
 
                     transitions.add(beginningOrOp1);
                     transitions.add(beginningOrOp2);
@@ -180,15 +181,4 @@ public class Thompson {
         }
     }
 
-    // private AFN or() {
-    //     // Initial State number handling
-    //     numState += 1;
-    //     State biginningState = new State(numState);
-    //     numState += 1;
-    //     State endState = new State(numState);
-        
-    //     // transition handling
-        
-    // }
-    
 }

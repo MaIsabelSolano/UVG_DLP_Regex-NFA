@@ -45,7 +45,9 @@ public class Controller {
 
         // AFN
         Thompson thompson = new Thompson(alphabet);
-        thompson.SubsetConstuction(regexT.getRoot());
+        AFN afn = thompson.SubsetConstuction(regexT.getRoot());
+
+        System.out.println(afn);
 
     }
 

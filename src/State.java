@@ -23,6 +23,15 @@ public class State {
     public void setToTrans() {
         this.type = Type.Trans;
     }
+
+    /* Getters */
+    public int getId() {
+        return id;
+    }
+
+    public Type getType() {
+        return type;
+    }
     
 }
 
