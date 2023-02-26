@@ -12,11 +12,11 @@ import java.util.HashMap;
 
 public class AFN extends Automata{
 
-    public ArrayList<State> States;
-    public State FinalState;
-    public HashMap<Integer, Symbol> Symbols;
-    public State initialState;
-    public ArrayList<Transition> transitions;
+    private ArrayList<State> States;
+    private State FinalState;
+    private HashMap<Integer, Symbol> Symbols;
+    private State initialState;
+    private ArrayList<Transition> transitions;
 
     public AFN(HashMap<Integer, Symbol> Symbols) {
         this.Symbols = Symbols;
@@ -34,6 +34,27 @@ public class AFN extends Automata{
         this.Symbols = Symbols;
         this.initialState = initialState;
         this.transitions = transitions;
+    }
+
+    /* Getters */
+    public ArrayList<State> getStates() {
+        return this.States;
+    }
+
+    public State getFinalState() {
+        return FinalState;
+    }
+
+    public HashMap<Integer, Symbol> getSymbols() {
+        return Symbols;
+    }
+
+    public State getInitialState() {
+        return initialState;
+    }
+
+    public ArrayList<Transition> getTransitions() {
+        return transitions;
     }
 
     @Override
