@@ -7,7 +7,6 @@
 
 package src;
 
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class Vista {
@@ -23,58 +22,88 @@ public class Vista {
         System.out.println("Por favor siga los pasos a continuación... \n");
     }
 
-    public HashMap<Integer, Symbol> getSymbols() {
-
-        HashMap<Integer, Symbol> SymbolSet = new HashMap<>();
-
-        System.out.println("Ingrese todos los símbolos pertenecientes a su alfabeto");
-        System.out.println("Para detenerse ingrese CANCELAR");
-
-        boolean cancel = false;
-        int counter = 1;
-        while (!cancel) {
-            try {
-                System.out.println("Ingrese el valor # " + counter);
-                String line = scan.nextLine();
-                char c = line.charAt(0);
-
-                int i = c; 
-
-                if (SymbolSet.containsKey(i)) {
-                    // The hashmap already contains that value
-                    System.out.println("Ingrese un valor nuevo, no repita");
-                } else if (line.toUpperCase().equals("CANCELAR")) {
-                    cancel = true;
-                }
-                else {
-                    // It's a new value
-                    System.out.println("Seguro que desea ingresar " + Character.toString(c) +"?");
-                    System.out.println("Enter para continuar");
-                    System.out.println("Ingrese NO para cancelar");
-
-                    String no = scan.nextLine();
-
-                    if (!no.toUpperCase().equals("NO")) {
-                        Symbol s = new Symbol(c);
-                        SymbolSet.put(i, s);
-                        counter ++;
-                    }
-                }
-                
-            } catch (Exception e) {
-                // TODO: handle exception
-                scan.nextLine();
-            }
-        }
-
-
-        return SymbolSet;
-        
-    }
-
     public String getRegex() {
 
         System.out.println("Regex de input: ");
-        return scan.nextLine();
+        String input = scan.nextLine();
+
+        if (checkCorrectness(input)) {
+            return input;
+        }
+        else {
+            return null;
+        }
+    }
+
+    private boolean checkCorrectness(String input){
+        boolean correct = true;
+
+        if (input.charAt(0) == '+' || input.charAt(0) == '*' || 
+            input.charAt(0) == '|' || input.charAt(0) == '.' ||
+            input.charAt(0) == '?' || input.charAt(0) == ')') {
+                // begins with invalid operator (1)
+                printErrorMssg(0, 1);
+                return false;
+            }
+
+        for (int i = 0; i < input.length() - 1; i++) {
+
+            if (input.charAt(i) == '|' || input.charAt(i) == '.') {
+                if (input.charAt(i + 1) == '|' || input.charAt(i + 1) == '+' ||
+                    input.charAt(i + 1) == '*' || input.charAt(i + 1) == '?' ||
+                    input.charAt(i + 1) == ')' || input.charAt(i + 1) == '.') {
+                        // Invalid sequence of operators (2)
+                        printErrorMssg(i, 2);
+                        return false;
+                }
+            }
+
+            // *, +, ? accept anything after them
+
+
+            if (input.charAt(i) == '(' && input.charAt(i + 1) == ')') {
+                // empty parenthesis (3)
+                printErrorMssg(i, 3);
+                return false;
+            }
+
+        }
+
+        if (input.charAt(input.length() - 1) == '(') {
+            // empty last parenthesis (4)
+            printErrorMssg(input.length() - 1, 4);
+            return false;
+        }
+
+        return correct;
+    }
+
+    private void printErrorMssg(int pos, int err) {
+        if (err == 1) {
+            System.out.println("^");
+            System.out.println("ERROR AT POSITION 0: Cannot start a regular expresion with a operator\n");
+
+        } else if (err == 2) {
+            for (int i = 0; i < pos; i ++ ) {
+                System.out.print("~");
+            }
+            System.out.print("^\n");
+            System.out.println("ERROR AT POSITION " + Integer.toString(pos) + ": Invalid sequence of operators.");
+            System.out.println("Operators such as '|' and '.' must be followed up by another valud sub expression\n");
+        
+        } else if (err == 3) {
+            for (int i = 0; i < pos; i ++ ) {
+                System.out.print("~");;
+            }
+            System.out.print("^\n");
+            System.out.println("ERROR AT POSITION " + Integer.toString(pos) + ": Invalid empty parenthesis\n");
+        } else if (err == 4) {
+            for (int i = 0; i < pos; i ++ ) {
+                System.out.print("~");
+            }
+            System.out.print("^\n");
+            System.out.println("ERROR AT POSITION " + Integer.toString(pos) + ": Invalid empty parenthesis at the end of the input");
+            System.out.println("Parenthesis can be left open, but the MUST have a valid subexpression after the opening bracket\n");
+        }
     }
 }

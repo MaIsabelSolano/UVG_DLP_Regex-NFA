@@ -21,33 +21,41 @@ public class Controller {
         // Get regex from user
         String regex = vis.getRegex();
 
-        // Transform to postfix
-        InfixToPostfix itp = new InfixToPostfix();
+        if (regex != null) {
+            // The user gave a valid regular expression as input so the
+            // program can continue normally
 
-        Stack<Symbol> stack = itp.convert(regex);
+            // Transform to postfix
+            InfixToPostfix itp = new InfixToPostfix();
 
-        HashMap<Integer, Symbol> alphabet = itp.getDic();
+            Stack<Symbol> stack = itp.convert(regex);
 
-        System.out.println("\nDictionary:");
-        for (int i: alphabet.keySet()) {
-            System.out.println(alphabet.get(i).c_id);
-        }
+            HashMap<Integer, Symbol> alphabet = itp.getDic();
 
-        System.out.println("\nStack: ");
-        for (Symbol s: stack) {
-            System.out.println(s.c_id);
-        }
+            System.out.println("\nDictionary:");
+            for (int i: alphabet.keySet()) {
+                System.out.println(alphabet.get(i).c_id);
+            }
 
-        // From postfix transform to Tree
-        Tree regexT = new Tree(stack);
-        System.out.println("\nTree");
-        regexT.printTree(regexT.getRoot());
+            System.out.println("\nStack: ");
+            for (Symbol s: stack) {
+                System.out.println(s.c_id);
+            }
 
-        // AFN
-        Thompson thompson = new Thompson(alphabet);
-        AFN afn = thompson.SubsetConstuction(regexT.getRoot());
+            // From postfix transform to Tree
+            Tree regexT = new Tree(stack);
+            System.out.println("\nTree");
+            regexT.printTree(regexT.getRoot());
 
-        System.out.println(afn);
+            // AFN
+            Thompson thompson = new Thompson(alphabet);
+            AFN afn = thompson.SubsetConstuction(regexT.getRoot());
+
+            System.out.println(afn);
+
+        } 
+
+
 
     }
 

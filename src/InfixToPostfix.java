@@ -170,7 +170,9 @@ public class InfixToPostfix {
             if ( isOperator(input.get(i)))  {
                 if ( input.get(i).c_id == '*' || input.get(i).c_id == '+' ||
                      input.get(i).c_id == ')' || input.get(i).c_id == '?') {
-                    if ( !isOperator(input.get(i + 1))) {
+                    if ( !isOperator(input.get(i + 1)) || 
+                         input.get(i + 1).c_id == '('
+                        ) {
 
                         temp.add(i + bias, concat);
                         bias ++;
