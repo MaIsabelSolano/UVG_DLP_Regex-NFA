@@ -117,13 +117,100 @@ public class Thompson {
                 } else if (node.value.c_id == '+') {
                     // positive clousure
 
-                    AFN currentAfn = new AFN(alphabet);
+                    // Get values from children
+                    // States
+                    ArrayList<State> statesChild = Child.getStates();
+
+                    ArrayList<State> states = new ArrayList<>();
+                    states.addAll(statesChild);
+
+                    // initial and final states position in arrays
+                    int initialChildStatePos = 0;
+                    int finalChildStatePos = -1;
+
+                    for (int i = 0; i < statesChild.size(); i++ ){
+                        if (statesChild.get(i).type == Type.Inicial) {
+                            initialChildStatePos = i;
+                        }
+                        if (statesChild.get(i).type == Type.Final) {
+                            finalChildStatePos = i;
+                        }
+                    }
+
+                    // get new transitions
+                    ArrayList<Transition> transitions = new ArrayList<>();
+                    transitions.addAll(Child.getTransitions());
+                    
+                    Transition back = new Transition(
+                        statesChild.get(finalChildStatePos)
+                        , epsilon,
+                        statesChild.get(initialChildStatePos));
+
+                    transitions.add(back);
+
+                    AFN currentAfn = new AFN(
+                        states, 
+                        Child.getInitialState(), 
+                        alphabet,
+                        Child.getFinalState(),
+                        transitions
+                    );
                     return currentAfn;
 
                 } else {
                     // question mark ('?')
+                    
+                    // Get new states ids
+                    int originState = 0;
+                    originState += numState;
+                    numState ++;
+                    int destinState = 0;
+                    destinState += numState;
+                    numState ++;
 
-                    AFN currentAfn = new AFN(alphabet);
+                    // Create new states
+                    State oS = new State(originState, 1);
+                    State dS = new State(destinState, 3);
+
+                    // Get values from children
+                    // States
+                    ArrayList<State> statesChild = Child.getStates();
+
+                    ArrayList<State> states = new ArrayList<>();
+                    states.add(oS);
+                    states.addAll(statesChild);
+                    states.add(dS);
+
+                    // initial and final states position in arrays
+                    int initialChildStatePos = 0;
+                    int finalChildStatePos = -1;
+
+                    for (int i = 0; i < statesChild.size(); i++ ){
+                        if (statesChild.get(i).type == Type.Inicial) {
+                            initialChildStatePos = i;
+                            statesChild.get(i).setToTrans();
+                        }
+                        if (statesChild.get(i).type == Type.Final) {
+                            finalChildStatePos = i;
+                            statesChild.get(i).setToTrans();
+                        }
+                    }
+
+                    // get new transitions
+                    ArrayList<Transition> transitions = new ArrayList<>();
+                    transitions.addAll(Child.getTransitions());
+                    
+
+                    // create new transitions
+                    Transition skip = new Transition(oS, epsilon, dS);
+                    Transition first = new Transition(oS, epsilon, statesChild.get(initialChildStatePos));
+                    Transition last = new Transition(statesChild.get(finalChildStatePos), epsilon, dS);
+
+                    transitions.add(skip);
+                    transitions.add(first);
+                    transitions.add(last);
+
+                    AFN currentAfn = new AFN(states, oS, alphabet, dS, transitions);
                     return currentAfn;
                 }
         
